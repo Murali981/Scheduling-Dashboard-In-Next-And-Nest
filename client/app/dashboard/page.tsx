@@ -12,9 +12,10 @@ import { SearchBar } from "./components/SearchBar";
 import { ServiceList } from "./components/ServiceList";
 import { LoadingSkeleton } from "./components/LoadingSkeleton";
 import { ErrorState } from "./components/ErrorState";
+import { BookingForm } from "./components/BookingForm";
 
 export default function DashboardPage() {
-  // Step 1: Get clinicId from URL  →  /dashboard?clinicId=clinic_abc
+  // Step 1: Get clinicId from URL
   const searchParams = useSearchParams();
   const clinicId = searchParams.get("clinicId") || "";
 
@@ -26,25 +27,50 @@ export default function DashboardPage() {
     useState<CategoryFilterType>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // Step 4: Filter services based on category + search (both work together)
+  // Step 4: Booking state
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [bookedSlots, setBookedSlots] = useState<Record<string, string[]>>({});
+
+  // Step 5: Filter services based on category + search
   const services = data?.services ?? [];
-  const filteredServices = services.filter((service) => {
-    const matchesCategory =
-      activeCategory === "all" || service.category === activeCategory;
+  const filteredServices = services
+    .map((service) => {
+      // Remove already booked slots from each service
+      const booked = bookedSlots[service.id] || [];
+      const remainingSlots = service.slots.filter(
+        (slot) => !booked.includes(slot),
+      );
+      return {
+        ...service,
+        slots: remainingSlots,
+        available: service.available && remainingSlots.length > 0,
+      };
+    })
+    .filter((service) => {
+      const matchesCategory =
+        activeCategory === "all" || service.category === activeCategory;
 
-    const matchesSearch =
-      searchQuery.trim() === "" ||
-      service.name.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesSearch =
+        searchQuery.trim() === "" ||
+        service.name.toLowerCase().includes(searchQuery.toLowerCase());
 
-    return matchesCategory && matchesSearch;
-  });
+      return matchesCategory && matchesSearch;
+    });
 
-  // Step 5: Handle Book Now click (will be completed in Part 2)
+  // Step 6: Handle Book Now click — opens the modal
   const handleBookNow = (service: Service) => {
-    console.log("Book Now clicked for:", service.name);
+    setSelectedService(service);
   };
 
-  // Step 6: No clinicId provided
+  // Step 7: Handle successful booking — remove booked slot from UI
+  const handleBookingSuccess = (serviceId: string, slot: string) => {
+    setBookedSlots((prev) => ({
+      ...prev,
+      [serviceId]: [...(prev[serviceId] || []), slot],
+    }));
+  };
+
+  // Step 8: No clinicId provided
   if (!clinicId) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -96,11 +122,10 @@ export default function DashboardPage() {
           />
         </div>
 
-        {/* Service Count
+        {/* Service Count */}
         {!loading && !error && (
           <p className="text-sm text-gray-500 mb-4">
-            Showing {filteredServices.length} of {data?.services.length || 0}{" "}
-            services
+            Showing {filteredServices.length} of {services.length} services
           </p>
         )}
 
@@ -117,6 +142,16 @@ export default function DashboardPage() {
           />
         )}
       </main>
+
+      {/* Booking Modal */}
+      {selectedService && (
+        <BookingForm
+          service={selectedService}
+          clinicId={clinicId}
+          onClose={() => setSelectedService(null)}
+          onSuccess={handleBookingSuccess}
+        />
+      )}
     </div>
   );
 }
