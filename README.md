@@ -8,8 +8,8 @@ A full-stack veterinary clinic scheduling platform built with **Next.js** (front
 
 | Layer | Technology |
 |---|---|
-| Frontend | Next.js 15, React 19, TypeScript, Tailwind CSS |
-| Backend | NestJS 11, TypeScript |
+| Frontend | Next.js, React, TypeScript, Tailwind CSS |
+| Backend | NestJS, TypeScript |
 | HTTP Client | Axios |
 
 ---
@@ -98,6 +98,27 @@ Fetches services for a clinic.
 GET http://localhost:4000/api/services?clinicId=clinic_abc
 GET http://localhost:4000/api/services?clinicId=clinic_abc&category=surgery
 ```
+**Response:**
+```json
+{
+  "clinicId": "clinic_abc",
+  "clinicName": "PawCare Clinic",
+  "currency": "USD",
+  "services": [
+    {
+      "id": "svc_1",
+      "name": "General Checkup",
+      "basePrice": 500,
+      "duration": 30,
+      "category": "checkup",
+      "available": true,
+      "slots": ["09:00", "10:30", "14:00", "16:00"]
+    }
+  ]
+}
+```
+
+> **Note:** `category` can be one of: `"checkup"` | `"vaccination"` | `"surgery"`
 
 ### POST `/api/appointments`
 
@@ -118,7 +139,7 @@ Books an appointment.
 **Response:**
 ```json
 {
-  "appointmentId": "apt_a1b2c3",
+  "appointmentId": "apt_123",
   "status": "confirmed"
 }
 ```
