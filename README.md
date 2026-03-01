@@ -158,6 +158,10 @@ Books an appointment.
 
 ### Backend (server)
 
+https://github.com/user-attachments/assets/f7d3e7d1-9c7d-425c-932f-a54b2a10eb79
+
+
+
 | Command | Description |
 |---|---|
 | `npm run start:dev` | Start development server with hot reload on port 4000 |
