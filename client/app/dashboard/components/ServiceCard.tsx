@@ -52,7 +52,6 @@ export function ServiceCard({
       </CardHeader>
 
       <CardContent className="flex flex-col grow">
-        {/* Duration */}
         <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
           <svg
             className="h-4 w-4"
@@ -70,8 +69,6 @@ export function ServiceCard({
           </svg>
           <span>{service.duration} minutes</span>
         </div>
-
-        {/* Available Slots */}
         <div className="mb-4 grow">
           <p className="text-sm font-semibold text-gray-700 mb-2">
             Available Slots:
@@ -92,7 +89,6 @@ export function ServiceCard({
           )}
         </div>
 
-        {/* Availability Status & Book Button */}
         <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
           <span
             className={`flex items-center gap-1.5 text-sm font-medium ${

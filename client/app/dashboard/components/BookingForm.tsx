@@ -73,15 +73,12 @@ export function BookingForm({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/50"
         onClick={status !== "submitting" ? onClose : undefined}
       />
 
-      {/* Modal */}
       <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
-        {/* Header */}
         <div className="px-6 py-4 bg-blue-600 text-white flex items-center justify-between">
           <div>
             <h2 className="text-lg font-bold">Book Appointment</h2>
@@ -109,7 +106,6 @@ export function BookingForm({
           </button>
         </div>
 
-        {/* Success State */}
         {status === "success" && (
           <div className="px-6 py-10 text-center">
             <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
@@ -151,7 +147,6 @@ export function BookingForm({
           </div>
         )}
 
-        {/* Error State */}
         {status === "error" && (
           <div className="px-6 py-10 text-center">
             <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mb-4">
@@ -187,10 +182,8 @@ export function BookingForm({
           </div>
         )}
 
-        {/* Form */}
         {(status === "idle" || status === "submitting") && (
           <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4">
-            {/* Pet Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Pet Name
@@ -204,8 +197,6 @@ export function BookingForm({
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
               />
             </div>
-
-            {/* Owner Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Owner Name
@@ -219,8 +210,6 @@ export function BookingForm({
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
               />
             </div>
-
-            {/* Owner Phone */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Owner Phone
@@ -234,8 +223,6 @@ export function BookingForm({
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
               />
             </div>
-
-            {/* Time Slot Selector */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Select Time Slot
@@ -255,7 +242,6 @@ export function BookingForm({
               </select>
             </div>
 
-            {/* Submit Button */}
             <div className="flex gap-3 pt-2">
               <Button
                 type="button"

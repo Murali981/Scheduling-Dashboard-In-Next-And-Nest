@@ -15,27 +15,21 @@ import { ErrorState } from "./components/ErrorState";
 import { BookingForm } from "./components/BookingForm";
 
 export default function DashboardPage() {
-  // Step 1: Get clinicId from URL
   const searchParams = useSearchParams();
   const clinicId = searchParams.get("clinicId") || "";
 
-  // Step 2: Fetch services from API
   const { data, loading, error, refetch } = useServices(clinicId);
 
-  // Step 3: Filter & Search state
   const [activeCategory, setActiveCategory] =
     useState<CategoryFilterType>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // Step 4: Booking state
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [bookedSlots, setBookedSlots] = useState<Record<string, string[]>>({});
 
-  // Step 5: Filter services based on category + search
   const services = data?.services ?? [];
   const filteredServices = services
     .map((service) => {
-      // Remove already booked slots from each service
       const booked = bookedSlots[service.id] || [];
       const remainingSlots = service.slots.filter(
         (slot) => !booked.includes(slot),
@@ -57,12 +51,10 @@ export default function DashboardPage() {
       return matchesCategory && matchesSearch;
     });
 
-  // Step 6: Handle Book Now click — opens the modal
   const handleBookNow = (service: Service) => {
     setSelectedService(service);
   };
 
-  // Step 7: Handle successful booking — remove booked slot from UI
   const handleBookingSuccess = (serviceId: string, slot: string) => {
     setBookedSlots((prev) => ({
       ...prev,
@@ -70,7 +62,6 @@ export default function DashboardPage() {
     }));
   };
 
-  // Step 8: No clinicId provided
   if (!clinicId) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -89,7 +80,6 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
@@ -108,9 +98,7 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Filters */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <CategoryFilter
             activeCategory={activeCategory}
@@ -122,14 +110,12 @@ export default function DashboardPage() {
           />
         </div>
 
-        {/* Service Count */}
         {!loading && !error && (
           <p className="text-sm text-gray-500 mb-4">
             Showing {filteredServices.length} of {services.length} services
           </p>
         )}
 
-        {/* Content States */}
         {loading && <LoadingSkeleton />}
 
         {error && <ErrorState message={error} onRetry={refetch} />}
@@ -143,7 +129,6 @@ export default function DashboardPage() {
         )}
       </main>
 
-      {/* Booking Modal */}
       {selectedService && (
         <BookingForm
           service={selectedService}
