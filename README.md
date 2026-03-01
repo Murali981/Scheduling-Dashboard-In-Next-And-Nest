@@ -44,56 +44,6 @@ A full-stack veterinary clinic scheduling platform built with **Next.js** (front
 
 ---
 
-## Project Structure
-
-```
-UplersAssignment2026/
-├── client/                          # Next.js Frontend
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── page.tsx             # Home page
-│   │   │   └── dashboard/
-│   │   │       ├── page.tsx         # Dashboard page
-│   │   │       └── components/
-│   │   │           ├── SearchBar.tsx
-│   │   │           ├── CategoryFilter.tsx
-│   │   │           ├── ServiceCard.tsx
-│   │   │           ├── ServiceList.tsx
-│   │   │           ├── LoadingSkeleton.tsx
-│   │   │           ├── ErrorState.tsx
-│   │   │           └── BookingForm.tsx
-│   │   ├── components/
-│   │   │   └── ui/
-│   │   │       ├── Card.tsx
-│   │   │       └── Button.tsx
-│   │   ├── hooks/
-│   │   │   └── useServices.ts
-│   │   ├── lib/
-│   │   │   └── api.ts
-│   │   └── types/
-│   │       └── DashboardTypes.ts
-│   └── package.json
-│
-├── server/                          # NestJS Backend
-│   ├── src/
-│   │   ├── main.ts
-│   │   ├── app.module.ts
-│   │   └── modules/
-│   │       ├── services/
-│   │       │   ├── services.module.ts
-│   │       │   ├── services.controller.ts
-│   │       │   └── services.service.ts
-│   │       └── appointments/
-│   │           ├── appointments.module.ts
-│   │           ├── appointments.controller.ts
-│   │           └── appointments.service.ts
-│   └── package.json
-│
-└── README.md
-```
-
----
-
 ## Setup Instructions
 
 ### 1. Clone the repository
