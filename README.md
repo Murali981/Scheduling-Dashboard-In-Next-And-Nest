@@ -49,8 +49,8 @@ A full-stack veterinary clinic scheduling platform built with **Next.js** (front
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/UplersAssignment2026.git
-cd UplersAssignment2026
+git clone https://github.com/Murali981/Scheduling-Dashboard-In-Next-And-Nest.git
+cd Scheduling-Dashboard-In-Next-And-Nest
 ```
 
 ### 2. Setup the backend (NestJS)
